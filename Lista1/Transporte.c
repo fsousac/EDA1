@@ -2,14 +2,22 @@
 
 int main()
 {
-    unsigned int comp_cont, larg_cont, alt_cont, comp_navio, larg_navio, alt_navio, quant_cont;
-    scanf("%d %d %d", &comp_cont, &larg_cont, &alt_cont);
-    scanf("%d %d %d", &comp_navio, &larg_navio, &alt_navio);
-    int area_base = comp_navio * larg_navio;
-    int area_cont = comp_cont * larg_cont;
-    int area_andar = area_base / area_cont;
-    int num_andar = alt_navio / alt_cont;
-    quant_cont = area_andar * num_andar;
+    int A, B, C, X, Y, Z;
 
-    printf("%d\n", quant_cont);
+    // Leitura das dimensões dos contêineres e do navio
+    scanf("%d %d %d", &A, &B, &C);
+    scanf("%d %d %d", &X, &Y, &Z);
+
+    // Calcula quantos contêineres podem ser colocados em cada dimensão
+    int cont_x = X / A;
+    int cont_y = Y / B;
+    int cont_z = Z / C;
+
+    // O número máximo de contêineres é o menor entre as três dimensões
+    int max_containers = cont_x * cont_y * cont_z;
+
+    // Imprime o resultado
+    printf("%d\n", max_containers);
+
+    return 0;
 }
