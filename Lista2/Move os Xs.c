@@ -1,36 +1,31 @@
 #include <stdio.h>
 #include <string.h>
 
-void moveXToEnd(char *str)
+void moveXToEnd(char *str, int len, int i)
 {
-
-    int length = strlen(str);
-
-    int newXIndex = 0;
-
-    for (int i = 0; i < length; i++)
+    if (i < len)
     {
-
-        if (str[i] != 'x')
+        if (str[i] == 'x')
         {
-            str[newXIndex] = str[i];
-            newXIndex++;
+            memmove(str + i, str + i + 1, len - i);
+            str[len - 1] = 'x';
+            moveXToEnd(str, len - 1, i);
         }
-    }
-
-    while (newXIndex < length)
-    {
-        str[newXIndex] = 'x';
-        newXIndex++;
+        else
+        {
+            moveXToEnd(str, len, i + 1);
+        }
     }
 }
 
 int main()
 {
-    char str[101];
+    char str[1001];
     scanf("%s", str);
 
-    moveXToEnd(str);
+    int len = strlen(str);
+
+    moveXToEnd(str, len, 0);
 
     printf("%s\n", str);
 
