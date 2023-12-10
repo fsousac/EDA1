@@ -13,28 +13,37 @@
             exch(a, b); \
     }
 
-void insertion_sort(int *v, int l, int r)
+void insertion_sortH(int *v, int l, int r, int h)
 {
-    for (int i = r; i > l; i--)
+    for (int i = l + h; i <= r; i++)
     {
-        compexch(v[i - 1], v[i]);
-    }
-    for (int i = l + 2; i <= r; i++)
-    {
-        int j = i, temp = v[j];
-        while (less(temp, v[j - 1]))
+        int j = i, temp = v[i];
+        for (; j >= l + h && less(temp, v[j - h]); j -= h)
         {
-            v[j] = v[j - 1];
-            j--;
+            v[j] = v[j - h];
         }
         v[j] = temp;
+    }
+}
+
+void shell_sort(int *v, int l, int r)
+{
+    int h = 1;
+    while (h < (r - l) / 9)
+    {
+        h = 3 * h + 1;
+    }
+
+    for (; h > 0; h = h / 3)
+    {
+        insertion_sortH(v, l, r, h);
     }
 }
 
 int main()
 {
     int size = 0, *v;
-    v = (int *)malloc(50000 * sizeof(int));
+    v = (int *)malloc(100000 * sizeof(int));
     int temp = 0;
     while (scanf("%d", &temp) != EOF)
     {
@@ -42,7 +51,7 @@ int main()
         size++;
     }
 
-    insertion_sort(v, 0, size - 1);
+    shell_sort(v, 0, size - 1);
     for (int i = 0; i < size - 1; i++)
     {
         printf("%d ", v[i]);
