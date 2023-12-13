@@ -48,6 +48,8 @@ void merge(int *v, int l, int m, int r)
         v[i] = aux[k];
         k++;
     }
+
+    free(aux);
 }
 
 void mergesort(int *v, int l, int r)
@@ -56,7 +58,7 @@ void mergesort(int *v, int l, int r)
     {
         return;
     }
-    int m = (r - l) / 2;
+    int m = (r + l) / 2;
     mergesort(v, l, m);
     mergesort(v, m + 1, r);
     merge(v, l, m, r);
